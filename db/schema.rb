@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170923172640) do
+ActiveRecord::Schema.define(version: 20170923180727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "tackle_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tackle_categories_on_name"
+  end
+
+  create_table "tackle_types", force: :cascade do |t|
+    t.string "name"
+    t.integer "tackle_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tackle_types_on_name"
+    t.index ["tackle_category_id"], name: "index_tackle_types_on_tackle_category_id"
+  end
 
   create_table "tackles", force: :cascade do |t|
     t.integer "user_id"
@@ -33,6 +49,7 @@ ActiveRecord::Schema.define(version: 20170923172640) do
     t.datetime "updated_at", null: false
     t.string "length_unit"
     t.string "weight_unit"
+    t.integer "tackle_category_id"
     t.index ["user_id"], name: "index_tackles_on_user_id"
   end
 
