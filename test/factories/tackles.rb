@@ -16,9 +16,9 @@ FactoryGirl.define do
     model_number "JM583"
     shape "fish"
     length 3.5
-    length_unit "inches"
+    length_unit "inch"
     weight 6
-    weight_unit "ounces"
+    weight_unit "ounce"
     brand "Storm"
     quantity_wanted 6
     price 5.49
