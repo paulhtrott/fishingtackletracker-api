@@ -21,10 +21,16 @@ describe User do
         value(user.errors.messages[:email]).must_include "is invalid"
       end
 
-      it "unique" do
-        user.update(email: 'paul@fish.com')
-        user = User.create(email: 'paul@fish.com')
-        value(user.errors.messages[:email]).must_include "has already been taken"
+      describe "unique" do
+
+        before do
+          user
+        end
+
+        it "should be unique" do
+          new_user = User.create(email: user.email)
+          value(new_user.errors.messages[:email]).must_include "has already been taken"
+        end
       end
     end
   end
