@@ -1,4 +1,5 @@
 class Tackle < ApplicationRecord
+
   belongs_to :user
   belongs_to :tackle_type
 
@@ -41,15 +42,37 @@ class Tackle < ApplicationRecord
   end
 
   def amount_spent
+    return if price.blank?
+    return if quantity.blank?
     price * quantity
   end
 
   def amount_to_spend
+    return if price.blank?
+    return if quantity_wanted.blank?
     price * quantity_wanted
   end
 
   def need_to_buy_more?
     quantity_wanted > quantity
+  end
+
+  def length_text
+    return if length.blank?
+    "#{length} #{length_unit}"
+  end
+
+  def weight_text
+    return if weight.blank?
+    "#{weight} #{weight_unit}"
+  end
+
+  def type
+    tackle_type.name
+  end
+
+  def category
+    tackle_type.tackle_category.name
   end
 
   def to_s

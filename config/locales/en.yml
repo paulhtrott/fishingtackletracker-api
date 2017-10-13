@@ -1,1 +1,8 @@
 en:
+  time:
+    formats:
+      json: "%Y-%m-%dT%H:%M%:z"
+
+  date:
+    formats:
+      json: "%Y-%m-%d"

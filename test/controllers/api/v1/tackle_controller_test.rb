@@ -8,8 +8,7 @@ describe Api::V1::TackleController do
       get api_v1_user_tackle_index_path(tackle.user.id)
       assert_response :success
       json = JSON.parse(response.body).deep_symbolize_keys
-      value(json[:user_id]).must_equal tackle.user.id
-      value(json[:tackle][0][:id]).must_equal tackle.id
+      value(json[:tackles][0][:id]).must_equal tackle.id
     end
   end
 
@@ -18,8 +17,7 @@ describe Api::V1::TackleController do
       get api_v1_user_tackle_path(tackle.user.id, tackle.id)
       assert_response :success
       json = JSON.parse(response.body).deep_symbolize_keys
-      value(json[:user_id]).must_equal tackle.user.id
-      value(json[:tackle][:id]).must_equal tackle.id
+      value(json[:id]).must_equal tackle.id
     end
   end
 end
