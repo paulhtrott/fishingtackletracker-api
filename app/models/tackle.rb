@@ -9,14 +9,14 @@ class Tackle < ApplicationRecord
   validates :user_id, presence: true
   validates :tackle_type_id, presence: true
   validates :name, presence: true
-  validates :size, numericality: { greater_than_or_equal_to: 0 }
-  validates :quantity, numericality: { greater_than_or_equal_to: 0 }
-  validates :length, numericality: { greater_than_or_equal_to: 0 }
+  validates :size, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
+  validates :quantity, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
+  validates :length, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
   validates :length_unit, inclusion: { in: LENGTH_UNITS, message: "%{value} is not valid, must be: #{LENGTH_UNITS.join(', ')}" }, if: :length_entered?
-  validates :weight, numericality: { greater_than_or_equal_to: 0 }
+  validates :weight, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
   validates :weight_unit, inclusion: { in: WEIGHT_UNITS, message: "%{value} is not valid, must be: #{WEIGHT_UNITS.join(', ')}" }, if: :weight_entered?
-  validates :quantity_wanted, numericality: { greater_than_or_equal_to: 0 }
-  validates :price, numericality: { greater_than_or_equal_to: 0 }
+  validates :quantity_wanted, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
+  validates :price, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
 
   def weight_unit=(value)
     value = nil unless weight.present? && weight > 0
@@ -54,6 +54,8 @@ class Tackle < ApplicationRecord
   end
 
   def need_to_buy_more?
+    return if quantity_wanted.blank?
+    return if quantity.blank?
     quantity_wanted > quantity
   end
 

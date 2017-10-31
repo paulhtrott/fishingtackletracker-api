@@ -56,7 +56,9 @@ module Api::ApiResponder
     end
 
     def list(scope)
-      scope.map { |model| new(model).to_hash }
+      scope.limit(scope.count).map { |model|
+        new(model).to_hash
+      }
     end
   end
 end
